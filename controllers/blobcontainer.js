@@ -11,9 +11,8 @@ const blobServiceClient = new BlobServiceClient(
   defaultAzureCredential
 );
 
-let blobContainers = [];
-
 async function getBlobContainersfromAzure() {
+    let blobContainers = [];
     let containers = blobServiceClient.listContainers();
     for await (const container of containers) {
       blobContainers.push({"name": container.name});
@@ -29,6 +28,14 @@ async function createBlobContainerinAzure(containerName) {
   );
 };
 
+async function deleteBlobContainerinAzure(containerName) {
+  const containerClient = blobServiceClient.getContainerClient(containerName);
+  const deleteContainerResponse = await containerClient.delete();
+  console.log(
+    `Container was deleted successfully.\n\trequestId:${deleteContainerResponse.requestId}\n\tURL: ${containerClient.url}`
+  );
+};
+
 export const getBlobContainers = async(req, res) => {
     const containers = await getBlobContainersfromAzure();
     res.send(containers);
@@ -38,4 +45,10 @@ export const createBlobContainer = (req, res) => {
     const container = req.body;
     createBlobContainerinAzure(container.name);
     res.send(`Blob container ${container.name} created.`);
+};
+
+export const deleteBlobContainer = (req, res) => {
+  const container = req.body;
+  deleteBlobContainerinAzure(container.name);
+  res.send(`Blob container ${container.name} created.`);
 };
