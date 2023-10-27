@@ -1,2 +1,2 @@
 # azurestorage-webapp
-Simple web app to upload files to an Azure blob storage container
+Simple web app to manage containers and blobs in an Azure storage account
