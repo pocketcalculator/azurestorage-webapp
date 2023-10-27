@@ -23,17 +23,11 @@ async function getBlobContainersfromAzure() {
 async function createBlobContainerinAzure(containerName) {
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const createContainerResponse = await containerClient.create();
-  console.log(
-    `Container was created successfully.\n\trequestId:${createContainerResponse.requestId}\n\tURL: ${containerClient.url}`
-  );
 };
 
 async function deleteBlobContainerinAzure(containerName) {
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const deleteContainerResponse = await containerClient.delete();
-  console.log(
-    `Container was deleted successfully.\n\trequestId:${deleteContainerResponse.requestId}\n\tURL: ${containerClient.url}`
-  );
 };
 
 export const getBlobContainers = async(req, res) => {
@@ -50,5 +44,5 @@ export const createBlobContainer = (req, res) => {
 export const deleteBlobContainer = (req, res) => {
   const container = req.body;
   deleteBlobContainerinAzure(container.name);
-  res.send(`Blob container ${container.name} created.`);
+  res.send(`Blob container ${container.name} deleted.`);
 };
