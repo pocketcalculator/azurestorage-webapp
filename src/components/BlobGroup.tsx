@@ -1,6 +1,36 @@
 import Blob from "./Blob";
+import { useEffect, useState } from "react";
 
-function BlobGroup() {
+const BLOBAPI_URL = '/blob';
+
+interface Blob {
+    id: number;
+    name: string;
+    createdOn: string;
+    contentLength: number;
+    contentType: string
+}
+
+export default function BlobGroup() {
+    const [error, setError] = useState();
+    const [blobs, setBlobs] = useState<Blob[]>([]);
+
+    useEffect(() => {
+        const fetchBlobs = async () => {
+            try {
+                const response = await fetch(`${BLOBAPI_URL}/newcontainer`);
+                const blobs = (await response.json()) as Blob[];
+                console.log(blobs);
+                setBlobs(blobs);
+            } catch (e: any) {
+                console.log(e);
+                return;
+            }
+
+        };
+        fetchBlobs();
+    }, []);
+    /*
     let blobs = [
         {
             "name": "ebmujj5y92q01.jpg",
@@ -27,6 +57,7 @@ function BlobGroup() {
             "contentType": "image/jpeg"
         }
     ]
+    */
 
     return (
         <>
@@ -36,7 +67,7 @@ function BlobGroup() {
                 {blobs.map(item => 
                     <li 
                         className="list-group-item" 
-                        key={item} 
+                        key={item.id} 
                         onClick={() => console.log(item)}
                     >
                         <Blob name={item.name} contentType={item.contentType} createdOn={item.createdOn} contentLength={item.contentLength} />
@@ -47,4 +78,4 @@ function BlobGroup() {
     );
 }
 
-export default BlobGroup;
+//export default BlobGroup;
