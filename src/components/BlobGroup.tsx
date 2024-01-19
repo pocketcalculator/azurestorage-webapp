@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 const BLOBAPI_URL = '/blob';
 
 interface Blob {
-    id: number;
+    etag: string;
     name: string;
     createdOn: string;
     contentLength: number;
@@ -67,7 +67,7 @@ export default function BlobGroup() {
                 {blobs.map(item => 
                     <li 
                         className="list-group-item" 
-                        key={item.id} 
+                        key={item.etag} 
                         onClick={() => console.log(item)}
                     >
                         <Blob name={item.name} contentType={item.contentType} createdOn={item.createdOn} contentLength={item.contentLength} />

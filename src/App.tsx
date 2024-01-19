@@ -1,3 +1,4 @@
+import './index.css';
 import TaskBar from "./components/TaskBar";
 import GrantProjectGroup from "./components/GrantProjectGroup";
 import BlobGroup from "./components/BlobGroup";

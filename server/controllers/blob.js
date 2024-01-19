@@ -16,7 +16,9 @@ async function getBlobsfromAzure(containerName) {
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const containerBlobs = containerClient.listBlobsFlat();
     for await (const containerBlob of containerBlobs) {
+        console.log(containerBlob);
         blobs.push({
+            "etag": containerBlob.properties.etag,
             "name": containerBlob.name,
             "createdOn": containerBlob.properties.createdOn,
             "contentLength": containerBlob.properties.contentLength,
@@ -42,7 +44,6 @@ async function deleteBlobFromAzure(containerName, targetBlobName) {
 };
 
 export const getBlobs = async (req, res) => {
-    console.log(req.params.name)
     const containerName = req.params.name;
     const containerBlobs = await getBlobsfromAzure(containerName);
     res.send(containerBlobs);
