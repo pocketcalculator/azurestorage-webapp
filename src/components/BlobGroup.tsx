@@ -1,7 +1,7 @@
 import Blob from "./Blob";
 import { useEffect, useState } from "react";
 
-const BLOBAPI_URL = '/blob';
+const BLOBAPI_URL = '/api/blobs';
 
 interface Blob {
     etag: string;

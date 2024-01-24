@@ -6,7 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/blob': 'http://localhost:5000'
+      '/api/blobs': 'http://localhost:5000',
+      'api/blob': 'http://localhost:5000',
+      '/api/grants': 'http://localhost:5000',
+      'api/grant': 'http://localhost:5000'
     }
   }
 })

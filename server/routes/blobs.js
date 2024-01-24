@@ -1,5 +1,5 @@
 import express from 'express';
-import { getBlobs, uploadBlob, deleteBlob } from '../controllers/blob.js';
+import { getBlobs, uploadBlob, deleteBlob } from '../controllers/blobs.js';
 
 const router = express.Router();
 
