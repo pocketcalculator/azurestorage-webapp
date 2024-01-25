@@ -9,12 +9,24 @@ import grantProjectRoutes from './routes/grantProjects.js';
 
 dotenv.config();
 
-const mongoURI = `mongodb://${process.env.COSMOSDB_DBNAME}:${process.env.COSMOSDB_KEY}@${process.env.COSMOSDB_DBNAME}.mongo.cosmos.azure.com:${process.env.COSMOSDB_PORT}/?ssl=true`;
+//const mongoURI = "mongodb://"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/"+process.env.COSMOSDB_DBNAME+"?ssl=true&retrywrites=false&maxIdleTimeMS=120000&replicaSet=globaldb";
+const mongoURI = "mongodb://localhost/grantprojects"
 
 const connectToCosmosDB = async () => {
     try {
-        mongoose.set('strictQuery', false)
-        mongoose.connect(mongoURI) 
+        mongoose.set('strictQuery', false);
+        await mongoose.connect(mongoURI) , {
+        /*
+            auth: {
+                username: process.env.COSMOSDB_USER,
+                password: process.env.COSMOSDB_PASSWORD
+            },
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            retryWrites: false,
+            maxIdleTimeMS: 120000
+        */
+        };
         console.log('Connected to CosmosDB')
     }
     catch(error) {
