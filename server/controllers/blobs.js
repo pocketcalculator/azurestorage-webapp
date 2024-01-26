@@ -16,7 +16,6 @@ async function getBlobsfromAzure(containerName) {
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const containerBlobs = containerClient.listBlobsFlat();
     for await (const containerBlob of containerBlobs) {
-        console.log(containerBlob);
         blobs.push({
             "etag": containerBlob.properties.etag,
             "name": containerBlob.name,

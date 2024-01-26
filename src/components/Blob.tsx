@@ -1,3 +1,5 @@
+import '../index.css';
+
 type BlobProps = {
     name: string;
     createdOn: string;

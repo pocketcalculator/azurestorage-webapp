@@ -20,7 +20,6 @@ export default function BlobGroup() {
             try {
                 const response = await fetch(`${BLOBAPI_URL}/newcontainer`);
                 const blobs = (await response.json()) as Blob[];
-                console.log(blobs);
                 setBlobs(blobs);
             } catch (e: any) {
                 console.log(e);
