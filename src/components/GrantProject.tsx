@@ -15,10 +15,14 @@ type GrantProjectProps = {
 }
 
 function GrantProject(props: GrantProjectProps) {
-    console.log(props);
+    const renderTags = props.tags.map((tag) => {
+        return (
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{tag}</span>
+        );
+    })
     return (
         <>
-            <div className="max-w-sm rounded overflow-hidden shadow-lg">
+            <div className="m-2 max-w-sm rounded overflow-hidden shadow-lg">
                 <img className="w-full" src={props.backgroundImage} alt="" />
                 <div className="px-6 py-4">
                     <div className="font-bold text-xl mb-2">{props.id}. {props.grantProjectName}</div>
@@ -30,8 +34,7 @@ function GrantProject(props: GrantProjectProps) {
                     </p>
                 </div>
                 <div className="px-6 pt-4 pb-2">
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.npoName}</span>
-                    <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#environment</span>
+                    {renderTags}
                 </div>
             </div>
         </>

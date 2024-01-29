@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div><TaskBar /></div>
-      <div><GrantProjectGroup /></div>
+      <div className="flex flex-wrap"><GrantProjectGroup /></div>
       <div><BlobGroup /></div>
     </>
   )
