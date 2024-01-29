@@ -6,10 +6,15 @@ const GRANTAPI_URL = '/api/grants';
 interface GrantProject {
     id: number,
     npoName: string,
+    backgroundImage: string,
     grantProjectName: string,
+    grantURL: string,
     description: string,
-    url: string,
-    blobContainer: string   
+    grantorName: string,
+    grantorURL: string,
+    blobContainer: string,
+    tags: Array<string>,
+    status: String 
 }
 
 export default function GrantProjectGroup() {
@@ -41,7 +46,7 @@ export default function GrantProjectGroup() {
                         key={item.id} 
                         onClick={() => console.log(item)}
                     >
-                        <GrantProject id={item.id} npoName={item.npoName} grantProjectName={item.grantProjectName} description={item.description} url={item.url} blobContainer={item.blobContainer} />
+                        <GrantProject id={item.id} npoName={item.npoName} backgroundImage={item.backgroundImage} grantProjectName={item.grantProjectName} grantURL={item.grantURL} description={item.description} grantorName={item.grantorName} grantorURL={item.grantorURL} blobContainer={item.blobContainer} tags={item.tags} status={item.status}/>
                     </li>
                 )}
             </ul>
