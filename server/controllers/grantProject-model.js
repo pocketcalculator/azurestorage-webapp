@@ -13,7 +13,7 @@ const grantProjectSchema = new Schema(
     grantorURL: String,
     blobContainer: String,
     tags: Array,
-    status: String
+    status: Boolean
   },
   { autoIndex: false }
 );

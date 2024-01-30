@@ -14,7 +14,7 @@ interface GrantProject {
     grantorURL: string,
     blobContainer: string,
     tags: Array<string>,
-    status: String 
+    status: boolean
 }
 
 export default function GrantProjectGroup() {
@@ -39,17 +39,9 @@ export default function GrantProjectGroup() {
     return (
         <>
             {grantProjects.length === 0 && <p>No documents found</p>}
-            <ul className="list-group">
                 {grantProjects.map(item => 
-                    <li 
-                        className="list-group-item" 
-                        key={item.id} 
-                        onClick={() => console.log(item)}
-                    >
                         <GrantProject id={item.id} npoName={item.npoName} backgroundImage={item.backgroundImage} grantProjectName={item.grantProjectName} grantURL={item.grantURL} description={item.description} grantorName={item.grantorName} grantorURL={item.grantorURL} blobContainer={item.blobContainer} tags={item.tags} status={item.status}/>
-                    </li>
                 )}
-            </ul>
         </>
     )
 }
