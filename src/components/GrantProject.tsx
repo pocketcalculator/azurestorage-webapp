@@ -1,5 +1,8 @@
 import '../index.css';
-import BlobGroup from './BlobGroup';
+import { useState } from 'react';
+import { Wrapper } from './Wrapper';
+import { Button } from './Button';
+import { EditGrantProject } from './EditGrantProject';
 
 type GrantProjectProps = {
     id: number,
@@ -16,6 +19,7 @@ type GrantProjectProps = {
 }
 
 function GrantProject(props: GrantProjectProps) {
+    const [openEditGrantProject, setOpenEditGrantProject] = useState(false);
     const renderTags = props.tags.map((tag) => {
         return (
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{tag}</span>
@@ -43,7 +47,7 @@ function GrantProject(props: GrantProjectProps) {
                 <div className="flex justify-center space-x-4">
                     {!props.status ? (
                         <>
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={() => setOpenEditGrantProject(true)}>
                                 Edit
                             </button>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
@@ -59,9 +63,17 @@ function GrantProject(props: GrantProjectProps) {
                     )}
                 </div>
             </div>
-
+            <EditGrantProject
+                open={openEditGrantProject}
+                onClose={() => {
+                    setOpenEditGrantProject(false);
+                }}
+            >
+                <p>Some text</p>
+                <Button onClick={() => setOpenEditGrantProject(false)}>Close Modal</Button>
+            </EditGrantProject>
         </>
     )
-}
+};
 
 export default GrantProject;
