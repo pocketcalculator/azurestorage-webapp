@@ -64,13 +64,13 @@ function GrantProject(props: GrantProjectProps) {
                 </div>
             </div>
             <EditGrantProject
+                npoName={props.npoName}
                 open={openEditGrantProject}
                 onClose={() => {
                     setOpenEditGrantProject(false);
                 }}
             >
-                <p>Some text</p>
-                <Button onClick={() => setOpenEditGrantProject(false)}>Close Modal</Button>
+                <Button onClick={() => setOpenEditGrantProject(false)}> </Button>
             </EditGrantProject>
         </>
     )

@@ -38,6 +38,7 @@ export default function GrantProjectGroup() {
 
     return (
         <>
+            {console.log(grantProjects.length + 1)}
             {grantProjects.length === 0 && <p>No documents found</p>}
                 {grantProjects.map(item => 
                         <GrantProject id={item.id} npoName={item.npoName} backgroundImage={item.backgroundImage} grantProjectName={item.grantProjectName} grantURL={item.grantURL} description={item.description} grantorName={item.grantorName} grantorURL={item.grantorURL} blobContainer={item.blobContainer} tags={item.tags} status={item.status}/>
