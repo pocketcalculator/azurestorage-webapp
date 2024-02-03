@@ -1,15 +1,25 @@
-import React, { ReactNode, useLayoutEffect, useRef } from 'react';
+import React, { ReactNode, useLayoutEffect, useRef, useState } from 'react';
 import '../index.css';
 import BlobGroup from './BlobGroup';
 
-interface Props {
+type GrantProjectProps = {
+    id: number,
     npoName: string;
+    backgroundImage: string,
+    grantProjectName: string,
+    grantURL: string,
+    description: string,
+    grantorName: string,
+    grantorURL: string,
+    blobContainer: string,
+    tags: Array<string>,
+    status: boolean,
     children: ReactNode;
     open: boolean;
     onClose: () => void;
 }
 
-export const EditGrantProject = ({ npoName, children, open, onClose }: Props) => {
+export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, blobContainer, tags, status, children, open, onClose }: GrantProjectProps) => {
     const ref = useRef<HTMLDialogElement>(null);
 
     useLayoutEffect(() => {
@@ -57,7 +67,6 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                             id="npoName"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                             value={npoName}
-                                            
                                         />
                                     </div>
                                 </div>
@@ -74,7 +83,7 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                             name="grantProjectName"
                                             id="grantProjectName"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            placeholder="grantProjectName"
+                                            value={grantProjectName}
                                         />
                                     </div>
                                 </div>
@@ -91,7 +100,7 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                             name="tags"
                                             id="tags"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            placeholder="tags"
+                                            value={tags}
                                         />
                                     </div>
                                 </div>
@@ -105,9 +114,9 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                     <textarea
                                         id="description"
                                         name="description"
-                                        rows={3}
+                                        rows={5}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        defaultValue={''}
+                                        value={description}
                                     />
                                 </div>
                             </div>
@@ -126,10 +135,9 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                 </div>
                             </div>
                             */}
-                            {/*
                             <div className="col-span-full">
                                 <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Cover photo
+                                    Documents
                                 </label>
                                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                                     <div className="text-center">
@@ -143,11 +151,10 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                             </label>
                                             <p className="pl-1">or drag and drop</p>
                                         </div>
-                                        <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                                        <p className="text-xs leading-5 text-gray-600">TXT, DOC, or PDF</p>
                                     </div>
                                 </div>
                             </div>
-                            */}
                         </div>
                     </div>
 
@@ -156,7 +163,7 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                         <p className="mt-1 text-sm leading-6 text-gray-600">...</p>
 
                         <div className="sm:col-span-4">
-                            <label htmlFor="grantortName" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="grantorName" className="block text-sm font-medium leading-6 text-gray-900">
                                 Grantor Name
                             </label>
                             <div className="mt-2">
@@ -166,7 +173,7 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                         name="grantorName"
                                         id="grantorName"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="grantorName"
+                                        value={grantorName}
                                     />
                                 </div>
                             </div>
@@ -183,7 +190,7 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                         name="grantorURL"
                                         id="grantorURL"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="grantorURL"
+                                        value={grantorURL}
                                     />
                                 </div>
                             </div>
@@ -200,7 +207,7 @@ export const EditGrantProject = ({ npoName, children, open, onClose }: Props) =>
                                         name="grantURL"
                                         id="grantURL"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="grantURL"
+                                        value={grantURL}
                                     />
                                 </div>
                             </div>

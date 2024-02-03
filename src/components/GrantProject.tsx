@@ -1,6 +1,5 @@
 import '../index.css';
 import { useState } from 'react';
-import { Wrapper } from './Wrapper';
 import { Button } from './Button';
 import { EditGrantProject } from './EditGrantProject';
 
@@ -15,7 +14,8 @@ type GrantProjectProps = {
     grantorURL: string,
     blobContainer: string,
     tags: Array<string>,
-    status: Boolean;
+    status: boolean,
+    updateGrantProject: () => void;
 }
 
 function GrantProject(props: GrantProjectProps) {
@@ -25,6 +25,8 @@ function GrantProject(props: GrantProjectProps) {
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{tag}</span>
         );
     });
+
+    props.updateGrantProject();
 
     return (
         <>
@@ -40,6 +42,7 @@ function GrantProject(props: GrantProjectProps) {
                             {props.description}
                         </p>
                     </div>
+                    <div className="font-bold text-l mb-2">5 documents uploaded</div>
                 </div>
                 <div className="px-6 pt-4 pb-2">
                     {renderTags}
@@ -64,7 +67,17 @@ function GrantProject(props: GrantProjectProps) {
                 </div>
             </div>
             <EditGrantProject
+                id={props.id}
                 npoName={props.npoName}
+                backgroundImage={props.backgroundImage}
+                grantProjectName={props.grantProjectName}
+                grantURL={props.grantURL}
+                description={props.description}
+                grantorName={props.grantProjectName}
+                grantorURL={props.grantorURL}
+                blobContainer={props.blobContainer}
+                tags={props.tags}
+                status={props.status}
                 open={openEditGrantProject}
                 onClose={() => {
                     setOpenEditGrantProject(false);
