@@ -13,9 +13,9 @@ type GrantProjectProps = {
     grantorName: string,
     grantorURL: string,
     blobContainer: string,
-    tags: Array<string>,
+    tags: string[],
     status: boolean,
-    updateGrantProject: () => void;
+    updateGrantProject: (id: number, updatedNpoName: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedBlobContainer: string, updatedTags: string[], updatedStatus: boolean) => void;
 }
 
 function GrantProject(props: GrantProjectProps) {
@@ -25,8 +25,6 @@ function GrantProject(props: GrantProjectProps) {
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{tag}</span>
         );
     });
-
-    props.updateGrantProject();
 
     return (
         <>
@@ -66,25 +64,31 @@ function GrantProject(props: GrantProjectProps) {
                     )}
                 </div>
             </div>
-            <EditGrantProject
-                id={props.id}
-                npoName={props.npoName}
-                backgroundImage={props.backgroundImage}
-                grantProjectName={props.grantProjectName}
-                grantURL={props.grantURL}
-                description={props.description}
-                grantorName={props.grantProjectName}
-                grantorURL={props.grantorURL}
-                blobContainer={props.blobContainer}
-                tags={props.tags}
-                status={props.status}
-                open={openEditGrantProject}
-                onClose={() => {
-                    setOpenEditGrantProject(false);
-                }}
-            >
-                <Button onClick={() => setOpenEditGrantProject(false)}> </Button>
-            </EditGrantProject>
+            {!props.status ? (
+                <EditGrantProject
+                    id={props.id}
+                    npoName={props.npoName}
+                    backgroundImage={props.backgroundImage}
+                    grantProjectName={props.grantProjectName}
+                    grantURL={props.grantURL}
+                    description={props.description}
+                    grantorName={props.grantProjectName}
+                    grantorURL={props.grantorURL}
+                    blobContainer={props.blobContainer}
+                    tags={props.tags}
+                    status={props.status}
+                    open={openEditGrantProject}
+                    onClose={() => {
+                        setOpenEditGrantProject(false);
+                    }}
+                    updateGrantProject={props.updateGrantProject}
+                >
+                    <Button onClick={() => setOpenEditGrantProject(false)}> </Button>
+                </EditGrantProject>
+            ):
+                <>
+                </>
+            }
         </>
     )
 };

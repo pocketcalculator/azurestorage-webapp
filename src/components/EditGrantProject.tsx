@@ -2,7 +2,7 @@ import React, { ReactNode, useLayoutEffect, useRef, useState } from 'react';
 import '../index.css';
 import BlobGroup from './BlobGroup';
 
-type GrantProjectProps = {
+type EditGrantProjectProps = {
     id: number,
     npoName: string;
     backgroundImage: string,
@@ -12,14 +12,27 @@ type GrantProjectProps = {
     grantorName: string,
     grantorURL: string,
     blobContainer: string,
-    tags: Array<string>,
+    tags: string[],
     status: boolean,
     children: ReactNode;
     open: boolean;
     onClose: () => void;
+    updateGrantProject: (id: number, updatedNpoName: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedBlobContainer: string, updatedTags: string[], updatedStatus: boolean) => void;
 }
 
-export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, blobContainer, tags, status, children, open, onClose }: GrantProjectProps) => {
+export const EditGrantProject = ({ id, npoName, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, blobContainer, tags, status, children, open, onClose, updateGrantProject }: EditGrantProjectProps, ) => {
+    const [updatedBackgroundImage, setUpdatedBackgroundImage] = useState(backgroundImage);
+    const [updatedNpoName, setUpdatedNpoName] = useState(npoName);
+    const [updatedGrantProjectName, setUpdatedGrantProjectName] = useState(grantProjectName);
+    const [updatedGrantURL, setUpdatedGrantURL] = useState(grantURL);
+    const [updatedDescription, setUpdatedDescription] = useState(description);
+    const [updatedGrantorName, setUpdatedGrantorName] = useState(grantorName);
+    const [updatedGrantorURL, setUpdatedGrantorURL] = useState(grantorURL);
+    const [updatedBlobContainer, setUpdatedBlobContainer] = useState(blobContainer);
+    const [updatedTags, setUpdatedTags] = useState(tags);
+    const [updatedStatus, setupdatedStatus] = useState(status);
+    console.log('grantor URL: ', updatedGrantorURL)
+
     const ref = useRef<HTMLDialogElement>(null);
 
     useLayoutEffect(() => {
@@ -46,7 +59,13 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
     return (
         <dialog className="p-5" ref={ref}>
             {children}
-            <form>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    console.log('Hello from form submit');
+                    console.log(id, updatedGrantorURL)
+                    updateGrantProject(id, updatedNpoName, updatedBackgroundImage, updatedGrantProjectName, updatedGrantURL, updatedDescription, updatedGrantorName, updatedGrantorURL, updatedBlobContainer, updatedTags, updatedStatus);
+                }}>
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Edit Grant Project</h2>
@@ -66,7 +85,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                             name="npoName"
                                             id="npoName"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            value={npoName}
+                                            value={updatedNpoName}
+                                            onChange={(e) => {setUpdatedNpoName(e.target.value)}}
                                         />
                                     </div>
                                 </div>
@@ -83,7 +103,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                             name="grantProjectName"
                                             id="grantProjectName"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            value={grantProjectName}
+                                            value={updatedGrantProjectName}
+                                            onChange={(e) => {setUpdatedGrantProjectName(e.target.value)}}
                                         />
                                     </div>
                                 </div>
@@ -100,7 +121,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                             name="tags"
                                             id="tags"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            value={tags}
+                                            value={updatedTags}
+//                                            onChange={(e) => {setUpdatedTags(e.target.value)}}
                                         />
                                     </div>
                                 </div>
@@ -116,7 +138,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                         name="description"
                                         rows={5}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        value={description}
+                                        value={updatedDescription}
+                                        onChange={(e) => {setUpdatedDescription(e.target.value)}}
                                     />
                                 </div>
                             </div>
@@ -173,7 +196,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                         name="grantorName"
                                         id="grantorName"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        value={grantorName}
+                                        value={updatedGrantorName}
+                                        onChange={(e) => {setUpdatedGrantorName(e.target.value)}}
                                     />
                                 </div>
                             </div>
@@ -190,7 +214,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                         name="grantorURL"
                                         id="grantorURL"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        value={grantorURL}
+                                        value={updatedGrantorURL}
+                                        onChange={(e) => {setUpdatedGrantorURL(e.target.value)}}
                                     />
                                 </div>
                             </div>
@@ -207,7 +232,8 @@ export const EditGrantProject = ({ npoName, backgroundImage, grantProjectName, g
                                         name="grantURL"
                                         id="grantURL"
                                         className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        value={grantURL}
+                                        value={updatedGrantURL}
+                                        onChange={(e) => {setUpdatedGrantURL(e.target.value)}}
                                     />
                                 </div>
                             </div>

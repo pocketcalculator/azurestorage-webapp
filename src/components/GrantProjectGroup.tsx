@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const GRANTAPI_URL = '/api/grants';
 
-type GrantProjectProps = {
+type GrantProjectGroupProps = {
     id: number,
     npoName: string,
     backgroundImage: string,
@@ -18,6 +18,8 @@ type GrantProjectProps = {
 }
 
 export default function GrantProjectGroup() {
+    const [grantProjects, setGrantProjects] = useState<GrantProjectGroupProps[]>([]);
+
     useEffect(() => {
         const fetchGrantProjects = async () => {
             try {
@@ -31,18 +33,18 @@ export default function GrantProjectGroup() {
         };
         fetchGrantProjects();
     }, []);
-    const [grantProjects, setGrantProjects] = useState<GrantProjectProps[]>([]);
 
-    function updateGrantProject() {
-        console.log('hello from GrantProjectGroup.tsx')
+    function updateGrantProject(id: number, updatedNpoName: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedBlobContainer: string, updatedTags: string[], updatedStatus: boolean) {
+        console.log('hello from GrantProjectGroup.tsx');
+        console.log('id: ', id, ' ', updatedNpoName, ' ', updatedGrantProjectName, ' ', updatedGrantorURL, ' ', updatedGrantorName);
     };
 
     return (
         <>
             {grantProjects.length === 0 && <p>No documents found</p>}
-                {grantProjects.map(item => 
-                        <GrantProject updateGrantProject={updateGrantProject} {...item}/>
-                )}
+            {grantProjects.map(item =>
+                <GrantProject updateGrantProject={updateGrantProject} {...item} />
+            )}
         </>
     )
 }
