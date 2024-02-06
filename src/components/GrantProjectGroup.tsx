@@ -1,5 +1,6 @@
 import GrantProject from "./GrantProject";
 import { useEffect, useState } from "react";
+import NewGrantProject from "./NewGrantProject";
 
 const GRANTAPI_URL = '/api/grants';
 
@@ -41,10 +42,11 @@ export default function GrantProjectGroup() {
 
     return (
         <>
-            {grantProjects.length === 0 && <p>No documents found</p>}
+            {grantProjects.length === 0 && <NewGrantProject />}
             {grantProjects.map(item =>
                 <GrantProject updateGrantProject={updateGrantProject} {...item} />
             )}
+            <NewGrantProject />
         </>
     )
 }
