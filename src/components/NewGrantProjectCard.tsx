@@ -1,8 +1,12 @@
 import '../index.css';
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import NewsletterModal, { NewsletterModalData } from './NewsletterModal/NewsletterModal';
 
-const NewGrantProject: React.FC = () => {
+type NewGrantProjectProps = {
+    saveNewGrantProjectToDB: (npoName: string, npoURL: string, backgroundImage: string, grantProjectName: string, grantURL: string, description: string, grantorName: string, grantorURL: string, tag1: string, tag2: string, tag3: string, tag4: string) => void;
+}
+
+function NewGrantProject({saveNewGrantProjectToDB}: NewGrantProjectProps) {
     const [isNewsletterModalOpen, setNewsletterModalOpen] = useState<boolean>(false);
     const [newsletterFormData, setNewsletterFormData] = useState<NewsletterModalData | null>(null);
     const backgroundImage = 'https://images.pexels.com/photos/955389/pexels-photo-955389.jpeg'
@@ -16,6 +20,8 @@ const NewGrantProject: React.FC = () => {
     };
 
     const handleFormSubmit = (data: NewsletterModalData): void => {
+        console.log(data);
+        saveNewGrantProjectToDB(data.npoName, data.npoURL, data.backgroundImage, data.grantProjectName, data.grantURL, data.description, data.grantorURL, data.grantorURL, data.tag1, data.tag2, data.tag3, data.tag4);
         setNewsletterFormData(data);
         handleCloseNewsletterModal();
     };
@@ -33,15 +39,15 @@ const NewGrantProject: React.FC = () => {
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={handleOpenNewsletterModal}>
                         Begin
                     </button>
-                    {newsletterFormData && newsletterFormData.email && (
+                    {newsletterFormData && newsletterFormData.grantProjectName && (
                         <div className="msg-box">
-                            <b>{newsletterFormData.email}</b> requested a <b>{newsletterFormData.digestType}</b> newsletter.
+                            <b>{newsletterFormData.grantProjectName}</b> requested a <b>{newsletterFormData.description}</b> newsletter.
                         </div>
                     )}
                 </div>
             </div>
 
-        <NewsletterModal isOpen={isNewsletterModalOpen} onSubmit={handleFormSubmit} onClose={handleCloseNewsletterModal} />
+            <NewsletterModal isOpen={isNewsletterModalOpen} onSubmit={handleFormSubmit} onClose={handleCloseNewsletterModal} />
         </>
     );
 };

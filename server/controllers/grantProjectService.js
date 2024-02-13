@@ -17,8 +17,8 @@ export function getGrantProjects(req, res) {
 
 export function createGrantProject(req, res) {
   const {
-    id,
     npoName,
+    npoURL,
     backgroundImage,
     grantProjectName,
     grantURL,
@@ -26,10 +26,13 @@ export function createGrantProject(req, res) {
     grantorName,
     grantorURL,
     blobContainer,
-    tags,
-    status
+    tag1,
+    tag2,
+    tag3,
+    tag4,
+    submitted
   } = req.body;
-  const grantProject = new GrantProject({ id, npoName, backgroundImage, grantProjectName, description, grantorName, grantorURL, grantURL, blobContainer, tags, status });
+  const grantProject = new GrantProject({ npoName, npoURL, backgroundImage, grantProjectName, description, grantorName, grantorURL, grantURL, blobContainer, tag1, tag2, tag3, tag4, submitted });
 
   grantProject.save().then(() => {
     res.json(grantProject);
@@ -41,8 +44,9 @@ export function createGrantProject(req, res) {
 
 export function updateGrantProject(req, res) {
   const {
-    id,
+    _id,
     npoName,
+    npoURL,
     backgroundImage,
     grantProjectName,
     grantURL,
@@ -50,14 +54,18 @@ export function updateGrantProject(req, res) {
     grantorName,
     grantorURL,
     blobContainer,
-    tags,
-    status
+    tag1,
+    tag2,
+    tag3,
+    tag4,
+    submitted
   } = req.body;
-  const docquery = GrantProject.findOne({ id });
+  const docquery = GrantProject.findOne({ _id });
   docquery
     .exec()
     .then(grantProject => {
       grantProject.npoName = npoName;
+      grantProject.npoURL = npoURL;
       grantProject.backgroundImage = backgroundImage;
       grantProject.grantProjectName = grantProjectName;
       grantProject.grantURL = grantURL;
@@ -65,8 +73,11 @@ export function updateGrantProject(req, res) {
       grantProject.grantorName = grantorName;
       grantProject.grantorURL = grantorURL;
       grantProject.blobContainer = blobContainer;
-      grantProject.tags = Array.from(tags);
-      grantProject.status = status;
+      grantProject.tag1 = tag1;
+      grantProject.tag2 = tag2;
+      grantProject.tag3 = tag3;
+      grantProject.tag4 = tag4;
+      grantProject.submitted = submitted;
       grantProject.save().then(res.json(grantProject));
     })
     .catch(err => {
@@ -75,8 +86,8 @@ export function updateGrantProject(req, res) {
 };
 
 export function deleteGrantProject(req, res) {
-  const { id } = req.params;
-  const docquery = GrantProject.findOneAndDelete( {id});
+  const { _id } = req.params;
+  const docquery = GrantProject.findOneAndDelete( { _id });
 
   docquery
     .exec()

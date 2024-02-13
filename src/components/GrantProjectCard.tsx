@@ -4,8 +4,9 @@ import { Button } from './Button';
 import { EditGrantProject } from './EditGrantProject';
 
 type GrantProjectProps = {
-    id: number,
+    _id: string,
     npoName: string,
+    npoURL: string,
     backgroundImage: string,
     grantProjectName: string,
     grantURL: string,
@@ -13,19 +14,16 @@ type GrantProjectProps = {
     grantorName: string,
     grantorURL: string,
     blobContainer: string,
-    tags: string[],
-    status: boolean,
-    updateGrantProject: (id: number, updatedNpoName: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedBlobContainer: string, updatedTags: string[], updatedStatus: boolean) => void;
+    tag1: string,
+    tag2: string,
+    tag3: string,
+    tag4: string,
+    submitted: Boolean
+    updateGrantProject: (_id: string, updatedNpoName: string, updatedNpoURL: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedTag1: string, updatedTag2: string, updatedTag3: string, updatedTag4: string, updatedSubmitted: boolean) => void;
 }
 
-function GrantProject(props: GrantProjectProps) {
+function GrantProjectCard(props: GrantProjectProps) {
     const [openEditGrantProject, setOpenEditGrantProject] = useState(false);
-    const renderTags = props.tags.map((tag) => {
-        return (
-            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{tag}</span>
-        );
-    });
-
     return (
         <>
             <div className="m-2 max-w-sm rounded overflow-hidden shadow-lg">
@@ -33,7 +31,7 @@ function GrantProject(props: GrantProjectProps) {
                     <img className="object-fill h-64 w-96" src={props.backgroundImage} alt="" />
                 </div>
                 <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">{props.id}. {props.grantProjectName}</div>
+                    <div className="font-bold text-xl mb-2">{props.grantProjectName}</div>
                     <div className="font-bold text-l mb-2">{props.grantorName}</div>
                     <div className="object-constrain h-24">
                         <p className="text-gray-700 text-base line-clamp-4">
@@ -43,10 +41,13 @@ function GrantProject(props: GrantProjectProps) {
                     <div className="font-bold text-l mb-2">5 documents uploaded</div>
                 </div>
                 <div className="px-6 pt-4 pb-2">
-                    {renderTags}
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag1}</span>
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag2}</span>
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag3}</span>
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag4}</span>
                 </div>
                 <div className="flex justify-center space-x-4">
-                    {!props.status ? (
+                    {!props.submitted ? (
                         <>
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={() => setOpenEditGrantProject(true)}>
                                 Edit
@@ -64,10 +65,11 @@ function GrantProject(props: GrantProjectProps) {
                     )}
                 </div>
             </div>
-            {!props.status ? (
+            {!props.submitted ? (
                 <EditGrantProject
-                    id={props.id}
+                    _id={props._id}
                     npoName={props.npoName}
+                    npoURL={props.npoURL}
                     backgroundImage={props.backgroundImage}
                     grantProjectName={props.grantProjectName}
                     grantURL={props.grantURL}
@@ -75,8 +77,11 @@ function GrantProject(props: GrantProjectProps) {
                     grantorName={props.grantProjectName}
                     grantorURL={props.grantorURL}
                     blobContainer={props.blobContainer}
-                    tags={props.tags}
-                    status={props.status}
+                    tag1={props.tag1}
+                    tag2={props.tag2}
+                    tag3={props.tag3}
+                    tag4={props.tag4}
+                    submitted={props.submitted}
                     open={openEditGrantProject}
                     onClose={() => {
                         setOpenEditGrantProject(false);
@@ -93,4 +98,4 @@ function GrantProject(props: GrantProjectProps) {
     )
 };
 
-export default GrantProject;
+export default GrantProjectCard;

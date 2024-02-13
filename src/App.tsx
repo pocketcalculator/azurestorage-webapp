@@ -1,13 +1,13 @@
 import './index.css';
 import TaskBar from "./components/TaskBar";
-import GrantProjectGroup from "./components/GrantProjectGroup";
+import GrantProjectCardGroup from './components/GrantProjectCardGroup';
 
 function App() {
 
   return (
     <>
       <div><TaskBar /></div>
-      <div className="flex flex-wrap"><GrantProjectGroup /></div>
+      <div className="flex flex-wrap"><GrantProjectCardGroup /></div>
     </>
   )
 }

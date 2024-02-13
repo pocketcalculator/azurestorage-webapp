@@ -3,8 +3,8 @@ import { Schema } from 'mongoose';
 
 const grantProjectSchema = new Schema(
   {
-    id: { type: Number, required: true, unique: true },
     npoName: String,
+    npoURL: String,
     backgroundImage: String,
     grantProjectName: String,
     grantURL: String,
@@ -12,8 +12,11 @@ const grantProjectSchema = new Schema(
     grantorName: String,
     grantorURL: String,
     blobContainer: String,
-    tags: Array,
-    status: Boolean
+    tag1: String,
+    tag2: String,
+    tag3: String,
+    tag4: String,
+    submitted: Boolean
   },
   { autoIndex: false }
 );

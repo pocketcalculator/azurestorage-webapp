@@ -3,8 +3,9 @@ import '../index.css';
 import BlobGroup from './BlobGroup';
 
 type EditNewGrantProjectProps = {
-    id: number,
+    _id: string,
     npoName: string;
+    npoURL: string;
     backgroundImage: string,
     grantProjectName: string,
     grantURL: string,
@@ -12,25 +13,31 @@ type EditNewGrantProjectProps = {
     grantorName: string,
     grantorURL: string,
     blobContainer: string,
-    tags: string[],
-    status: boolean,
+    tag1: string,
+    tag2: string,
+    tag3: string,
+    tag4: string,
+    submitted: boolean,
     children: ReactNode;
     open: boolean;
     onClose: () => void;
-    updateGrantProject: (id: number, updatedNpoName: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedBlobContainer: string, updatedTags: string[], updatedStatus: boolean) => void;
+    updateGrantProject: (_id: string, updatedNpoName: string, updatedNpoURL: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, upadedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedTag1: string, updatedTag2: string, updatedTag3: string, updatedTag4: string, updatedSubmitted: boolean) => void;
 }
 
-export const EditNewGrantProject = ({ id, npoName, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, blobContainer, tags, status, children, open, onClose, updateGrantProject }: EditNewGrantProjectProps, ) => {
+export const EditNewGrantProject = ({ _id, npoName, npoURL, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, tag1, tag2, tag3, tag4, submitted, children, open, onClose, updateGrantProject }: EditNewGrantProjectProps, ) => {
     const [updatedBackgroundImage, setUpdatedBackgroundImage] = useState(backgroundImage);
     const [updatedNpoName, setUpdatedNpoName] = useState(npoName);
+    const [updatedNpoURL, setUpdateNpoURL] = useState(npoURL);
     const [updatedGrantProjectName, setUpdatedGrantProjectName] = useState(grantProjectName);
     const [updatedGrantURL, setUpdatedGrantURL] = useState(grantURL);
     const [updatedDescription, setUpdatedDescription] = useState(description);
     const [updatedGrantorName, setUpdatedGrantorName] = useState(grantorName);
     const [updatedGrantorURL, setUpdatedGrantorURL] = useState(grantorURL);
-    const [updatedBlobContainer, setUpdatedBlobContainer] = useState(blobContainer);
-    const [updatedTags, setUpdatedTags] = useState(tags);
-    const [updatedStatus, setupdatedStatus] = useState(status);
+    const [updatedTag1, setUpdatedTag1] = useState(tag1);
+    const [updatedTag2, setUpdatedTag2] = useState(tag2);
+    const [updatedTag3, setUpdatedTag3] = useState(tag3);
+    const [updatedTag4, setUpdatedTag4] = useState(tag4);   
+    const [updatedSubmitted, setupdatedSubmitted] = useState(submitted);
     console.log('grantor URL: ', updatedGrantorURL)
 
     const ref = useRef<HTMLDialogElement>(null);
@@ -63,8 +70,8 @@ export const EditNewGrantProject = ({ id, npoName, backgroundImage, grantProject
                 onSubmit={(e) => {
                     e.preventDefault();
                     console.log('Hello from form submit');
-                    console.log(id, updatedGrantorURL)
-                    updateGrantProject(id, updatedNpoName, updatedBackgroundImage, updatedGrantProjectName, updatedGrantURL, updatedDescription, updatedGrantorName, updatedGrantorURL, updatedBlobContainer, updatedTags, updatedStatus);
+                    console.log(_id, updatedGrantorURL)
+                    updateGrantProject(_id, updatedNpoName, updatedNpoURL, updatedBackgroundImage, updatedGrantProjectName, updatedGrantURL, updatedDescription, updatedGrantorName, updatedGrantorURL, updatedTag1, updatedTag2, updatedTag3, updatedTag4, updatedSubmitted);
                 }}>
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12">
@@ -121,7 +128,7 @@ export const EditNewGrantProject = ({ id, npoName, backgroundImage, grantProject
                                             name="tags"
                                             id="tags"
                                             className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                            value={updatedTags}
+                                            value={updatedTag1}
 //                                            onChange={(e) => {setUpdatedTags(e.target.value)}}
                                         />
                                     </div>
