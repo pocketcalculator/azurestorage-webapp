@@ -1,29 +1,29 @@
 import '../index.css';
 import React, { PropsWithChildren, useState } from 'react';
-import NewsletterModal, { NewsletterModalData } from './NewsletterModal/NewsletterModal';
+import NewGrantProjectModal, { NewGrantProjectModalData } from './NewGrantProjectModal/NewGrantProjectModal';
 
 type NewGrantProjectProps = {
     saveNewGrantProjectToDB: (npoName: string, npoURL: string, backgroundImage: string, grantProjectName: string, grantURL: string, description: string, grantorName: string, grantorURL: string, tag1: string, tag2: string, tag3: string, tag4: string) => void;
 }
 
 function NewGrantProject({saveNewGrantProjectToDB}: NewGrantProjectProps) {
-    const [isNewsletterModalOpen, setNewsletterModalOpen] = useState<boolean>(false);
-    const [newsletterFormData, setNewsletterFormData] = useState<NewsletterModalData | null>(null);
+    const [isNewGrantProjectModalOpen, setNewGrantProjectModalOpen] = useState<boolean>(false);
+    const [newsletterFormData, setNewsletterFormData] = useState<NewGrantProjectModalData | null>(null);
     const backgroundImage = 'https://images.pexels.com/photos/955389/pexels-photo-955389.jpeg'
 
     const handleOpenNewsletterModal = () => {
-        setNewsletterModalOpen(true);
+        setNewGrantProjectModalOpen(true);
     };
 
-    const handleCloseNewsletterModal = () => {
-        setNewsletterModalOpen(false);
+    const handleCloseNewGrantProjectModal = () => {
+        setNewGrantProjectModalOpen(false);
     };
 
-    const handleFormSubmit = (data: NewsletterModalData): void => {
+    const handleFormSubmit = (data: NewGrantProjectModalData): void => {
         console.log(data);
-        saveNewGrantProjectToDB(data.npoName, data.npoURL, data.backgroundImage, data.grantProjectName, data.grantURL, data.description, data.grantorURL, data.grantorURL, data.tag1, data.tag2, data.tag3, data.tag4);
+        saveNewGrantProjectToDB(data.npoName, data.npoURL, data.backgroundImage, data.grantProjectName, data.grantURL, data.description, data.grantorName, data.grantorURL, data.tag1, data.tag2, data.tag3, data.tag4);
         setNewsletterFormData(data);
-        handleCloseNewsletterModal();
+        handleCloseNewGrantProjectModal();
     };
 
     return (
@@ -47,7 +47,7 @@ function NewGrantProject({saveNewGrantProjectToDB}: NewGrantProjectProps) {
                 </div>
             </div>
 
-            <NewsletterModal isOpen={isNewsletterModalOpen} onSubmit={handleFormSubmit} onClose={handleCloseNewsletterModal} />
+            <NewGrantProjectModal isOpen={isNewGrantProjectModalOpen} onSubmit={handleFormSubmit} onClose={handleCloseNewGrantProjectModal} />
         </>
     );
 };

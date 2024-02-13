@@ -41,10 +41,18 @@ function GrantProjectCard(props: GrantProjectProps) {
                     <div className="font-bold text-l mb-2">5 documents uploaded</div>
                 </div>
                 <div className="px-6 pt-4 pb-2">
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag1}</span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag2}</span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag3}</span>
-                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag4}</span>
+                    {props.tag1 && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag1}</span>
+                    )}
+                    {props.tag2 && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag2}</span>
+                    )}
+                    {props.tag3 && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag3}</span>
+                    )}
+                    {props.tag4 && (
+                        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#{props.tag4}</span>
+                    )}
                 </div>
                 <div className="flex justify-center space-x-4">
                     {!props.submitted ? (
@@ -90,7 +98,7 @@ function GrantProjectCard(props: GrantProjectProps) {
                 >
                     <Button onClick={() => setOpenEditGrantProject(false)}> </Button>
                 </EditGrantProject>
-            ):
+            ) :
                 <>
                 </>
             }

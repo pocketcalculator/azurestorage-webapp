@@ -47,15 +47,15 @@ export default function GrantProjectCardGroup() {
 
     const saveNewGrantProjectToDB = async (npoName: string, npoURL: string, backgroundImage: string, grantProjectName: string, grantURL: string, description: string, grantorName: string, grantorURL: string, tag1: string, tag2: string, tag3: string, tag4: string) => {
         console.log('saveNewGrantProjectToDB run from GrantProjectGroup.tsx');
-        console.log(npoName, ' ', backgroundImage, ' ', grantProjectName, ' ', grantURL, ' ', description, ' ', grantorName, ' ', grantorURL, ' ', tag1);
-        const request = { npoName, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, tag1 };
+        console.log(npoName, ' ', npoURL, ' ', backgroundImage, ' ', grantProjectName, ' ', grantURL, ' ', description, ' ', grantorName, ' ', grantorURL, ' ', tag1, ' ', tag2, ' ', tag3, ' ', tag4);
+        const request = { npoName, npoURL, backgroundImage, grantProjectName, grantURL, description, grantorName, grantorURL, tag1, tag2, tag3, tag4 };
         try {
             await fetch(`${GRANTAPI_URL}`, {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(request)
             });
-            console.log('posted');
+            console.log('new grant project posted');
         } catch (e: any) {
             console.log(e);
             return;
@@ -66,7 +66,7 @@ export default function GrantProjectCardGroup() {
         <>
             {/*grantProjects.length === 0 && <NewGrantProjectCard />*/}
             {grantProjects.map(item =>
-                <GrantProjectCard updateGrantProject={updateExistingGrantProjectToDB} {...item} />
+                <GrantProjectCard key={item._id} updateGrantProject={updateExistingGrantProjectToDB} {...item} />
             )}
             <NewGrantProjectCard saveNewGrantProjectToDB={saveNewGrantProjectToDB} />
         </>

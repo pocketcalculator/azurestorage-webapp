@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './NewsletterModal.css';
+import './NewGrantProjectModal.css';
 import Modal from '../Modal/Modal';
 
-export interface NewsletterModalData {
+export interface NewGrantProjectModalData {
   npoName: string,
   npoURL: string,
   backgroundImage: string,
@@ -19,7 +19,7 @@ export interface NewsletterModalData {
   submitted: Boolean
 }
 
-const initialNewsletterModalData: NewsletterModalData = {
+const initialNewGrantProjectModalData: NewGrantProjectModalData = {
   npoName: 'Nonprofit Organization Name',
   npoURL: 'Nonprofit Website URL',
   backgroundImage: 'URL for Background Image',
@@ -36,21 +36,21 @@ const initialNewsletterModalData: NewsletterModalData = {
   submitted: false
 };
 
-interface NewsletterModalProps {
+interface NewGrantProjectModalProps {
   isOpen: boolean;
-  onSubmit: (data: NewsletterModalData) => void;
+  onSubmit: (data: NewGrantProjectModalData) => void;
   onClose: () => void;
 }
 
-const NewsletterModal: React.FC<NewsletterModalProps> = ({
+const NewGrantProjectModal: React.FC<NewGrantProjectModalProps> = ({
   onSubmit,
   isOpen,
   onClose,
 }) => {
 
   const focusInputRef = useRef<HTMLInputElement | null>(null);
-  const [formState, setFormState] = useState<NewsletterModalData>(
-    initialNewsletterModalData
+  const [formState, setFormState] = useState<NewGrantProjectModalData>(
+    initialNewGrantProjectModalData
   );
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
   const handleSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
     onSubmit(formState);
-    setFormState(initialNewsletterModalData);
+    setFormState(initialNewGrantProjectModalData);
   };
 
   return (
@@ -102,6 +102,18 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
               />
             </div>
             <div className="form-row">
+              <label htmlFor="npoURL">NPO URL</label>
+              <input
+                ref={focusInputRef}
+                type="url"
+                id="npoURL"
+                name="npoURL"
+                value={formState.npoURL}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div className="form-row">
               <label htmlFor="backgroundImage">Background Imagee</label>
               <input
                 ref={focusInputRef}
@@ -110,14 +122,13 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
                 name="backgroundImage"
                 value={formState.backgroundImage}
                 onChange={handleInputChange}
-                required
               />
             </div>
             <div className="form-row">
               <label htmlFor="grantProjectName">Grant Project Name</label>
               <input
                 ref={focusInputRef}
-                type="name"
+                type="text"
                 id="grantProjectName"
                 name="grantProjectName"
                 value={formState.grantProjectName}
@@ -174,7 +185,7 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
               />
             </div>
             <div className="form-row">
-              <label htmlFor="tags">Tags</label>
+              <label htmlFor="tag1">Tags</label>
               <input
                 ref={focusInputRef}
                 type="text"
@@ -182,7 +193,39 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
                 name="tag1"
                 value={formState.tag1}
                 onChange={handleInputChange}
-                required
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="tag2">Tags</label>
+              <input
+                ref={focusInputRef}
+                type="text"
+                id="tag2"
+                name="tag2"
+                value={formState.tag2}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="tag3">Tags</label>
+              <input
+                ref={focusInputRef}
+                type="text"
+                id="tag3"
+                name="tag3"
+                value={formState.tag3}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="tag4">Tags</label>
+              <input
+                ref={focusInputRef}
+                type="text"
+                id="tag4"
+                name="tag4"
+                value={formState.tag4}
+                onChange={handleInputChange}
               />
             </div>
             <div className="form-row">
@@ -195,4 +238,4 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
   );
 };
 
-export default NewsletterModal;
+export default NewGrantProjectModal;
