@@ -1,6 +1,6 @@
 import React, { ReactNode, useLayoutEffect, useRef, useState } from 'react';
-import '../index.css';
 import BlobGroup from './BlobGroup';
+import '../index.css';
 
 type EditNewGrantProjectProps = {
     _id: string,

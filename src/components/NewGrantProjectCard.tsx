@@ -1,6 +1,8 @@
-import '../index.css';
 import React, { PropsWithChildren, useState } from 'react';
 import NewGrantProjectModal, { NewGrantProjectModalData } from './NewGrantProjectModal/NewGrantProjectModal';
+import '../index.css';
+
+
 
 type NewGrantProjectProps = {
     saveNewGrantProjectToDB: (npoName: string, npoURL: string, backgroundImage: string, grantProjectName: string, grantURL: string, description: string, grantorName: string, grantorURL: string, tag1: string, tag2: string, tag3: string, tag4: string) => void;

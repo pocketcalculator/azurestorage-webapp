@@ -1,7 +1,7 @@
-import '../index.css';
 import { useState } from 'react';
 import { Button } from './Button';
 import { EditGrantProject } from './EditGrantProject';
+import '../index.css';
 
 type GrantProjectProps = {
     _id: string,

@@ -1,5 +1,6 @@
 import Blob from "./Blob";
 import { useEffect, useState } from "react";
+import '../index.css';
 
 const BLOBAPI_URL = '/api/blobs';
 

@@ -1,6 +1,7 @@
 import GrantProjectCard from "./GrantProjectCard";
 import { useEffect, useState } from "react";
 import NewGrantProjectCard from "./NewGrantProjectCard";
+import '../index.css';
 
 const GRANTAPI_URL = '/api/grants';
 
@@ -38,7 +39,7 @@ export default function GrantProjectCardGroup() {
 
     useEffect(() => {
         fetchGrantProjects();
-    }, []);
+    }, [grantProjects]);
 
     function updateExistingGrantProjectToDB(_id: string, updatedNpoName: string, updatedNpoURL: string, updatedBackgroundImage: string, updatedGrantProjectName: string, updatedGrantURL: string, updatedDescription: string, updatedGrantorName: string, updatedGrantorURL: string, updatedTag1: string, updatedTag2: string, updatedTag3: string, updatedTag4: string, updatedSubmitted: boolean) {
         console.log('hello from GrantProjectGroup.tsx');
