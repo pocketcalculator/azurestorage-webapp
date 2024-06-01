@@ -50,7 +50,7 @@ const Modal: React.FC<ModalProps> = ({
     <dialog ref={modalRef} onKeyDown={handleKeyDown} className="modal">
       {hasCloseBtn && (
         <button className="modal-close-btn" onClick={handleCloseModal}>
-          Close
+           &times;  
         </button>
       )}
       {children}
