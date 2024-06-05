@@ -95,7 +95,7 @@ const NewGrantProjectModal: React.FC<NewGrantProjectModalProps> = ({
                   htmlFor="npoName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Nonprofit Organization Name
+                Nonprofit Organization Name
                 </label>
                 <input
                   ref={focusInputRef}
@@ -109,76 +109,117 @@ const NewGrantProjectModal: React.FC<NewGrantProjectModalProps> = ({
                 />
               </div>
             </div>
-            <div className="form-row">
-              <label htmlFor="npoURL">NPO URL</label>
-              <input
-                ref={focusInputRef}
-                type="url"
-                id="npoURL"
-                name="npoURL"
-                value={formState.npoURL}
-                onChange={handleInputChange}
-                required
-              />
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="npoURL"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  NPO URL
+                </label>
+                <input
+                  ref={focusInputRef}
+                  type="url"
+                  id="npoURL"
+                  name="npoURL"
+                  className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 border-b border-gray-500"
+                  value={formState.npoURL}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
             </div>
-            <div className="form-row">
-              <label htmlFor="backgroundImage">Background Imagee</label>
-              <input
-                ref={focusInputRef}
-                type="url"
-                id="backgroundImage"
-                name="backgroundImage"
-                value={formState.backgroundImage}
-                onChange={handleInputChange}
-              />
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="backgroundImage"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                Background Image
+                </label>
+                <input
+                  ref={focusInputRef}
+                  type="url"
+                  id="backgroundImage"
+                  name="backgroundImage"
+                  className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm leading-6 border-b border-gray-500"
+                  value={formState.backgroundImage}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
-            <div className="form-row">
-              <label htmlFor="grantProjectName">Grant Project Name</label>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
+              <label 
+                htmlFor="grantProjectName"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+              Grant Project Name
+              </label>
               <input
                 ref={focusInputRef}
                 type="text"
                 id="grantProjectName"
                 name="grantProjectName"
+                className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm leading-6 border-b border-gray-500"
                 value={formState.grantProjectName}
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <div className="form-row">
-              <label htmlFor="grantURL">Grant URL</label>
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
+              <label 
+                htmlFor="grantURL"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+              Grant URL</label>
               <input
                 ref={focusInputRef}
                 type="url"
                 id="grantURL"
                 name="grantURL"
+                className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm leading-6 border-b border-gray-500"
                 value={formState.grantURL}
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <div className="form-row">
-              <label htmlFor="description">Description</label>
-              <input
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-6">
+              <label 
+                htmlFor="description"
+                className="block text-sm font-medium text-gray-700">
+                  Description
+              </label>
+              <textarea
                 ref={focusInputRef}
-                type="text"
                 id="description"
                 name="description"
+                rows={4}
+                className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
                 value={formState.description}
                 onChange={handleInputChange}
                 required
               />
             </div>
-            <div className="form-row">
+            </div>
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
               <label htmlFor="grantorName">Name of Grantor</label>
               <input
                 ref={focusInputRef}
                 type="text"
                 id="grantorName"
+                className="block w-full flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 border-b border-gray-500"
                 name="grantorName"
                 value={formState.grantorName}
                 onChange={handleInputChange}
                 required
               />
+            </div>
             </div>
             <div className="form-row">
               <label htmlFor="grantorURL">Grantor Website</label>
