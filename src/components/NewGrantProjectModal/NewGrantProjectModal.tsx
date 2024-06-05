@@ -221,7 +221,8 @@ const NewGrantProjectModal: React.FC<NewGrantProjectModalProps> = ({
               />
             </div>
             </div>
-            <div className="form-row">
+            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
               <label htmlFor="grantorURL">Grantor Website</label>
               <input
                 ref={focusInputRef}
@@ -232,6 +233,7 @@ const NewGrantProjectModal: React.FC<NewGrantProjectModalProps> = ({
                 onChange={handleInputChange}
                 required
               />
+            </div>
             </div>
             <div className="form-row">
               <label htmlFor="tag1">Tag 1</label>
