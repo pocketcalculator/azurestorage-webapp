@@ -39,7 +39,6 @@ export const EditGrantProject = ({ _id, npoName, npoURL, backgroundImage, grantP
     const [updatedTag3, setUpdatedTag3] = useState(tag3);
     const [updatedTag4, setUpdatedTag4] = useState(tag4);
     const [updatedSubmitted, setupdatedSubmitted] = useState(submitted);
-    console.log('grantor URL: ', updatedGrantorURL)
 
     const ref = useRef<HTMLDialogElement>(null);
 
