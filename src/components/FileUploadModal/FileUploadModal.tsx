@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   BsFiletypeTxt,
@@ -12,17 +12,21 @@ import {
   BsFiletypePdf,
   BsFiletypeMd,
   BsFileEarmark,
+  BsXCircle
 } from "react-icons/bs";
+import { TiDelete } from "react-icons/ti";
 
 type DropzoneProps = {
   className?: string;
   acceptedFiles?: Array<string>;
+  rejectedFiles?: Array<string>;
 };
 
-function Dropzone({ className }: DropzoneProps) {
+const Dropzone = ({ className }) => {
   const [files, setFiles] = useState([]);
+  const [rejected, setRejected] = useState([]);
 
-  const onDrop = useCallback((acceptedFiles: DropzoneProps) => {
+  const onDrop = useCallback((acceptedFiles: DropzoneProps, rejectedFiles: DropzoneProps) => {
     if (acceptedFiles?.length) {
       setFiles((previousFiles) => [
         ...previousFiles,
@@ -31,11 +35,43 @@ function Dropzone({ className }: DropzoneProps) {
         ),
       ]);
     }
+
+    if (rejectedFiles?.length) {
+      setRejected(previousFiles => [...previousFiles, ...rejectedFiles]);
+    } 
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      "text/*": [],
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [],
+      "application/vnd.ms-excel": [],
+      "application/msword": [],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [],
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation": [],
+      "application/vnd.ms-powerpoint": [],
+      "application/pdf": [],
+    },
     onDrop
   });
+
+  useEffect(() => {
+    // Revoke the data uris to avoid memory leaks
+    return () => files.forEach(file => URL.revokeObjectURL(file.preview))
+  }, [files])
+
+  const removeFile = name => {
+    setFiles(files => files.filter(file => file.name !== name))
+  }
+
+  const removeAll = () => {
+    setFiles([])
+    setRejected([])
+  }
+
+  const removeRejected = name => {
+    setRejected(files => files.filter(({ file }) => file.name !== name))
+  }
 
   const getFileTypeIcon = (fileType: string) => {
     switch (fileType) {
@@ -82,12 +118,25 @@ function Dropzone({ className }: DropzoneProps) {
 
       <ul>
         {files.map((file) => {
-          console.log(file.type);
           const Icon = getFileTypeIcon(file.type);
           return (
             <li key={file.name}>
-              {Icon && <Icon className="h-10 w-10" />}
-              {file.name}
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <Icon
+                  className="h-10 w-10"
+                  onLoad={() => URL.revokeObjectURL(file.preview)}
+                />
+                <button
+                  type="button"
+                  className="w-7 h-7 flex justify-center items-center absolute -top-3 -right-3"
+                  onClick={() => removeFile(file.name)}
+                >
+                  <TiDelete className="w-20 h-20 text-red-400" />
+                </button>
+              </div>
+              <div>
+                {file.name}
+              </div>
             </li>
           );
         })}
