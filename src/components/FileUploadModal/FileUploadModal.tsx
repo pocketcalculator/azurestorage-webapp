@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { Button } from "../Button";
+import { Children, useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   BsFiletypeTxt,
@@ -120,10 +121,12 @@ const Dropzone = ({ className }) => {
         {files.map((file) => {
           const Icon = getFileTypeIcon(file.type);
           return (
+            <div className="ps-10 py-6 mt-5 justify-center bg-gray-100 rounded-md justify-center">
             <li key={file.name}>
-              <div style={{ position: "relative", display: "inline-block" }}>
+              <div 
+                style={{ position: "relative", display: "inline-block" }}>
                 <Icon
-                  className="h-10 w-10"
+                  className="h-10 w-10 bg-white"
                   onLoad={() => URL.revokeObjectURL(file.preview)}
                 />
                 <button
@@ -135,12 +138,19 @@ const Dropzone = ({ className }) => {
                 </button>
               </div>
               <div>
-                {file.name}
+                <p className="font-bold">{file.name}</p>
+                <p>{file.size} bytes</p>
               </div>
             </li>
+            </div>
           );
         })}
       </ul>
+      <div className="flex justify-center space-x-4 mt-5">
+        {files.length > 0 && (
+          <Button onClick={() => files.forEach(file => console.log(file))}>UPLOAD</Button>
+        )}
+      </div>
     </>
   );
 }

@@ -1,5 +1,7 @@
 import React, { PropsWithChildren, useState } from 'react';
+import Form from './GrantProjectQuestions/GrantProjectQuestions';
 import NewGrantProjectModal, { NewGrantProjectModalData } from './NewGrantProjectModal/NewGrantProjectModal';
+import { Button } from './Button';
 import '../index.css';
 
 
@@ -38,9 +40,9 @@ function NewGrantProject({saveNewGrantProjectToDB}: NewGrantProjectProps) {
                     <div className="font-bold text-xl mb-2">Start A New Grant Project</div>
                 </div>
                 <div className="flex justify-center space-x-4">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded" onClick={handleOpenNewsletterModal}>
+                    <Button onClick={handleOpenNewsletterModal}>
                         Begin
-                    </button>
+                    </Button>
                     {newsletterFormData && newsletterFormData.grantProjectName && (
                         <div className="msg-box">
                             <b>{newsletterFormData.grantProjectName}</b> requested a <b>{newsletterFormData.description}</b> newsletter.
@@ -50,6 +52,7 @@ function NewGrantProject({saveNewGrantProjectToDB}: NewGrantProjectProps) {
             </div>
 
             <NewGrantProjectModal isOpen={isNewGrantProjectModalOpen} onSubmit={handleFormSubmit} onClose={handleCloseNewGrantProjectModal} />
+            <Form />
         </>
     );
 };

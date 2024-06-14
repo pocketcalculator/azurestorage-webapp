@@ -311,7 +311,7 @@ const NewGrantProjectModal: React.FC<NewGrantProjectModalProps> = ({
               <FileUploadModal/>
             </div>
             </div>
-            <div className="flex justify-center space-x-4 mt-4">
+            <div className="flex justify-center space-x-4 mt-9">
               <Button onClick={onClose}>Cancel</Button>
               <button type="submit">Submit</button>
             </div>
