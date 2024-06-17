@@ -27,7 +27,10 @@ router.use((req, res, next) => {
     next();
 });
 
+// Get a list of files in the container defined by 'name' parameter
 router.get('/:name', listFiles);
+
+// Upload an array of files in formData to the container
 router.post('/', upload.array('file'), (req, res, next) => {
     // Access the file object
     if (req.files) {

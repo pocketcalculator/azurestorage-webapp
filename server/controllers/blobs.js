@@ -69,7 +69,7 @@ export const uploadFile = async (req, res) => {
     try {
         await uploadBlobToAzure(container, targetBlobName, blob);
         // Sending a JSON response indicating success
-        res.json({
+        res.status(200).json({
             success: true,
             message: `${targetBlobName} uploaded successfully.`
         });

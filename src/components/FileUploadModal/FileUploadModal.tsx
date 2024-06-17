@@ -25,30 +25,34 @@ type DropzoneProps = {
 
 async function uploadFiles(files) {
   const apiUrl = "http://localhost:5000/api/blobs";
+  const formData = new FormData();
 
   for (const file of files) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('targetBlobName', file.name);
-    formData.append('containerName', 'upload');
+    formData.append("file", file);
+    formData.append("targetBlobName", file.name);
+    formData.append("containerName", "upload");
+  }
 
-    try {
-      const requestOptions = {
-        method: "POST",
-        body: formData
-      };
-      
-      const response = await fetch(apiUrl, requestOptions);
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
+  try {
+    const requestOptions = {
+      method: "POST",
+      body: formData,
+    };
 
-      const result = await response.json();
-      console.log("Upload successful:", result);
-    } catch (error) {
-      console.error("Error uploading file:", error);
+    const response = await fetch(apiUrl, requestOptions);
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
     }
+
+    const result = await response.json();
+    console.log("Upload successful:", result);
+  } catch (error) {
+    console.error("Error uploading file:", error);
   }
 }
 
