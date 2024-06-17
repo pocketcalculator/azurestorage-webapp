@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import multer from 'multer';
+import util from 'util';
 import { listFiles, uploadFile, deleteFile } from '../controllers/blobs.js';
+
 
 const router = express.Router();
 
@@ -16,13 +19,22 @@ router.use(cors(corsOptions));
 // Example of enabling pre-flight requests for all routes
 router.options('*', cors(corsOptions));
 
+// Multer configuration
+const upload = multer({ dest: 'uploads/' })
+
 router.use((req, res, next) => {
     console.log(`Incoming request: ${req.method} ${req.path}`);
     next();
 });
 
 router.get('/:name', listFiles);
-router.post('/', uploadFile);
+router.post('/', upload.array('file'), (req, res, next) => {
+    // Access the file object
+    if (req.files) {
+        console.log(`${req.files.length} files uploaded.`);
+    }
+    console.log(util.inspect(req.files, { depth: null }));
+});
 router.delete('/', deleteFile);
 
 export default router;

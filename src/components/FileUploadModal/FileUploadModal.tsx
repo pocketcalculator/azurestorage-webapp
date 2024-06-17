@@ -27,24 +27,17 @@ async function uploadFiles(files) {
   const apiUrl = "http://localhost:5000/api/blobs";
 
   for (const file of files) {
-    //const formData = new FormData();
-    //formData.append('file', file); // Assuming `file.path` is the path of the local file
-    // formData.append('targetBlobName', file.name); // Assuming `file.name` is the name of the file
-    //formData.append('container', 'upload');
-    console.log(file.type);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('targetBlobName', file.name);
+    formData.append('containerName', 'upload');
 
     try {
       const requestOptions = {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          "targetFileName": file.name,
-          "file": file,
-          "container": "upload"
-        }),
+        body: formData
       };
+      
       const response = await fetch(apiUrl, requestOptions);
 
       if (!response.ok) {
