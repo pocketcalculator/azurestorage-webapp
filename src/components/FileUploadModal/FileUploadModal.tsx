@@ -33,10 +33,6 @@ async function uploadFiles(files) {
     formData.append("containerName", "upload");
   }
 
-  for (let [key, value] of formData.entries()) {
-    console.log(key, value);
-  }
-
   try {
     const requestOptions = {
       method: "POST",

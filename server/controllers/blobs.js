@@ -27,10 +27,10 @@ async function listBlobsFromAzure(containerName) {
     return blobs;
 };
 
-async function uploadBlobToAzure(containerName, targetBlobName, blob) {
+async function uploadBlobToAzure(containerName, targetBlobName, localBlobFilePath) {
     const containerClient = blobServiceClient.getContainerClient(containerName);
     const blockBlobClient = containerClient.getBlockBlobClient(targetBlobName);
-    await blockBlobClient.uploadData(file, { blobHTTPHeaders: { blobContentType: blob.type } });
+    await blockBlobClient.uploadFile(localBlobFilePath);
 };
 
 async function deleteBlobFromAzure(containerName, targetBlobName) {
@@ -61,29 +61,15 @@ export const listFiles = async (req, res) => {
     }
 };
 
-export const uploadFile = async (req, res) => {
-    console.log(req)
-    const container = req.body.container;
-    const targetBlobName = req.body.targetFileName;
-    const blob = req.body.file;
+export const uploadFile = async (file, targetBlobName, containerName) => {
+    const localBlobFilePath = file.path;
+    console.log("in uploadFile: targetBlobName:", targetBlobName);
+    console.log("in uploadFile: containerName:", containerName);
     try {
-        await uploadBlobToAzure(container, targetBlobName, blob);
-        // Sending a JSON response indicating success
-        res.status(200).json({
-            success: true,
-            message: `${targetBlobName} uploaded successfully.`
-        });
+        await uploadBlobToAzure(containerName, targetBlobName, localBlobFilePath);
+        return { success: true, message: `${targetBlobName} uploaded successfully.` };
     } catch (error) {
-        console.error("Error uploading file:", error.stack); // Log the error stack for detailed debugging information
-        // Sending a JSON response indicating failure with more detailed error information
-        res.status(500).json({
-            success: false,
-            message: `Error uploading ${targetBlobName}: ${error.message}`,
-            error: {
-                message: error.message,
-                stack: error.stack // Include the error stack in the response for detailed debugging (consider the security implications)
-            }
-        });
+        throw error;
     }
 };
 

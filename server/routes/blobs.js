@@ -20,7 +20,13 @@ router.use(cors(corsOptions));
 router.options('*', cors(corsOptions));
 
 // Multer configuration
-const upload = multer({ dest: 'uploads/' })
+const storage = multer.diskStorage({
+    destination: '/tmp/uploads',
+    filename: function (req, file, cb) {
+      cb(null, file.originalname)
+    }
+})
+const upload = multer({ storage: storage })
 
 router.use((req, res, next) => {
     console.log(`Incoming request: ${req.method} ${req.path}`);
@@ -31,12 +37,36 @@ router.use((req, res, next) => {
 router.get('/:name', listFiles);
 
 // Upload an array of files in formData to the container
-router.post('/', upload.array('file'), (req, res, next) => {
-    // Access the file object
-    if (req.files) {
-        console.log(`${req.files.length} files uploaded.`);
+router.post('/', upload.array('file'), async (req, res, next) => {
+    // Check if files are present
+    if (!req.files || req.files.length === 0) {
+        return res.status(404).send('No files were uploaded.');
     }
-    console.log(util.inspect(req.files, { depth: null }));
+
+    // Prepare to upload files
+    const uploadPromises = req.files.map((file, index) => {
+        const targetBlobName = req.body.targetBlobName[index];
+        const containerName = req.body.containerName[index];
+        // Check if both targetBlobName and containerName are provided
+        if (!targetBlobName || !containerName) {
+            const missing = !targetBlobName ? 'targetBlobName' : 'containerName';
+            throw new Error(`Missing ${missing} for file at index: ${index}`);
+        }
+
+        // Assuming uploadFile is an async function that uploads the file
+        return uploadFile(file, targetBlobName, containerName);
+    });
+
+    // Handle file uploads
+    try {
+        await Promise.all(uploadPromises);
+        res.status(200).json({ message: 'All files uploaded successfully.' });
+    } catch (error) {
+        console.error('Upload error:', error);
+        // Determine the appropriate status code based on the error
+        const statusCode = error.message.includes('Missing') ? 404 : 500;
+        res.status(statusCode).send(error.message);
+    }
 });
 router.delete('/', deleteFile);
 
