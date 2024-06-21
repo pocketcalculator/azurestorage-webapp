@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Specify allowed origins
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: true,
     optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
@@ -45,14 +45,23 @@ router.post('/', upload.array('file'), async (req, res, next) => {
 
     // Prepare to upload files
     const uploadPromises = req.files.map((file, index) => {
-        const targetBlobName = req.body.targetBlobName[index];
-        const containerName = req.body.containerName[index];
+        console.log('req.files.length:', req.files.length);
+        let targetBlobName; // Declare outside the if-else block
+        let containerName;  // Declare outside the if-else block
+
+        if (req.files.length > 1) {
+            targetBlobName = req.body.targetBlobName[index];
+            containerName = req.body.containerName[index];
+        } else {
+            targetBlobName = req.body.targetBlobName;
+            containerName = req.body.containerName;
+        }
+        
         // Check if both targetBlobName and containerName are provided
         if (!targetBlobName || !containerName) {
             const missing = !targetBlobName ? 'targetBlobName' : 'containerName';
             throw new Error(`Missing ${missing} for file at index: ${index}`);
         }
-
         // Assuming uploadFile is an async function that uploads the file
         return uploadFile(file, targetBlobName, containerName);
     });
