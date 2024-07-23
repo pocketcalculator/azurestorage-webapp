@@ -13,9 +13,10 @@ import {
   BsFiletypePdf,
   BsFiletypeMd,
   BsFileEarmark,
-  BsXCircle,
+  BsCloudUploadFill
 } from "react-icons/bs";
 import { TiDelete } from "react-icons/ti";
+import "./FileUploadModal.css";
 
 type DropzoneProps = {
   className?: string;
@@ -140,14 +141,21 @@ const Dropzone = ({ className }) => {
     <>
       <div
         {...getRootProps({
-          className: className,
+          className: `${className} flex flex-col items-center justify-center file-upload-container`,
         })}
       >
+        <BsCloudUploadFill className="cloud-upload-icon"/>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>Drop the files here ...</p>
+          <p>Drop files here</p>
         ) : (
-          <p>Drag 'n' drop some files here, or click to select files</p>
+          <>
+            <p>Drag & Drop files here</p>
+            <p>OR</p>
+            <div className="bg-blue-800 text-white rounded-lg p-2">
+              <p>BROWSE FILES</p>
+          </div>
+          </>
         )}
       </div>
 

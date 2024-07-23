@@ -69,7 +69,7 @@ router.post('/', upload.array('file'), async (req, res, next) => {
     // Handle file uploads
     try {
         await Promise.all(uploadPromises);
-        res.status(200).json({ message: 'All files uploaded successfully.' });
+        res.status(200).json({ message: 'Upload successful.' });
     } catch (error) {
         console.error('Upload error:', error);
         // Determine the appropriate status code based on the error

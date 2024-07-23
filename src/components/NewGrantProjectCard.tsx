@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react';
 import Form from './GrantProjectQuestions/GrantProjectQuestions';
-import NewGrantProjectModal, { NewGrantProjectModalData } from './NewGrantProjectModal/NewGrantProjectModal';
+import NewGrantProjectModal, { NewGrantProjectModalData } from './NewGrantProjectFormModal/NewGrantProjectFormModal';
 import { Button } from './Button';
 import '../index.css';
 

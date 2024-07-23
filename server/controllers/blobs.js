@@ -63,11 +63,9 @@ export const listFiles = async (req, res) => {
 
 export const uploadFile = async (file, targetBlobName, containerName) => {
     const localBlobFilePath = file.path;
-    console.log("in uploadFile: targetBlobName:", targetBlobName);
-    console.log("in uploadFile: containerName:", containerName);
     try {
         await uploadBlobToAzure(containerName, targetBlobName, localBlobFilePath);
-        return { success: true, message: `${targetBlobName} uploaded successfully.` };
+        return { success: true, message: `${targetBlobName} Upload successful.` };
     } catch (error) {
         throw error;
     }
