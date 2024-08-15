@@ -31,6 +31,10 @@ export function createGrantProject(req, res) {
     tag3,
     tag4,
     submitted
+    /* need to add the following: 
+    due date: Date or String,
+    chatbot or copilot URL: String or leave blank if back-end hasn't completed building it
+    */
   } = req.body;
   const grantProject = new GrantProject({ npoName, npoURL, backgroundImage, grantProjectName, description, grantorName, grantorURL, grantURL, blobContainer, tag1, tag2, tag3, tag4, submitted });
 

@@ -2,6 +2,7 @@ import { DefaultAzureCredential } from "@azure/identity";
 import { BlobServiceClient } from "@azure/storage-blob";
 import dotenv from "dotenv";
 
+// reference .env to retrieve the STORAGEACCOUNTNAME
 dotenv.config();
 
 const defaultAzureCredential = new DefaultAzureCredential();
@@ -71,9 +72,17 @@ export const uploadFile = async (file, targetBlobName, containerName) => {
     }
 };
 
-export const deleteFile = (req, res) => {
+export const deleteFile = async (req, res) => {
     const container = req.body.container;
     const targetBlobName = req.body.targetBlobName;
-    deleteBlobFromAzure(container, targetBlobName);
-    res.send(`${targetBlobName} deleted.`);
+    try {
+        await deleteBlobFromAzure(container, targetBlobName);
+        res.send(`${targetBlobName} deleted.`);
+    } catch (error) {
+        // Sending a JSON response indicating failure
+        res.status(500).json({
+            success: false,
+            message: `Error deleting ${targetBlobName} from ${container}: ${error.message}`
+        });
+    }
 }

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 const defaultAzureCredential = new DefaultAzureCredential();
 
+// reference .env to retrieve the STORAGEACCOUNTNAME
 dotenv.config();
 
 const blobServiceClient = new BlobServiceClient(

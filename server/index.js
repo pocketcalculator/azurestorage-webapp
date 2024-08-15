@@ -7,6 +7,7 @@ import blobContainerRoutes from './routes/blobContainer.js';
 import blobRoutes from './routes/blobs.js';
 import grantProjectRoutes from './routes/grantProjects.js';
 
+// retrieve COSMOSDB_USER, COSMOSDB_PASSWORD, COSMOSDB_HOST, COSMOSDB_PORT from .env
 dotenv.config();
 
 const mongoURI = "mongodb://"+process.env.COSMOSDB_USER+":"+process.env.COSMOSDB_PASSWORD+"@"+process.env.COSMOSDB_HOST+":"+process.env.COSMOSDB_PORT+"/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000"
@@ -44,6 +45,6 @@ app.use('/api/blobContainer', blobContainerRoutes);
 app.use('/api/blobs', blobRoutes);
 app.use('/api/grants', grantProjectRoutes);
 
-app.get('/', (req, res) => {res.send('Hello from Homepage')});
+app.get('/', (req, res) => {res.send('Welcome to the Grant Projects API!')});
 
 app.listen(PORT, () => console.log(`Server Running on http://localhost:${PORT}`));

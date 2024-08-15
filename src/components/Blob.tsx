@@ -1,3 +1,4 @@
+//Not yet implemented, this components displays details for each file.  Called by BlobGroup component.
 import '../index.css';
 
 type BlobProps = {

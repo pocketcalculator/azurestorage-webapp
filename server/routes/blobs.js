@@ -77,6 +77,8 @@ router.post('/', upload.array('file'), async (req, res, next) => {
         res.status(statusCode).send(error.message);
     }
 });
+
+// placeholder for delete blob, not yet implemented
 router.delete('/', deleteFile);
 
 export default router;
